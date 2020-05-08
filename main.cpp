@@ -1,3 +1,5 @@
+// main.cpp
+// Andy Wu, Chase Alcorn
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -5,6 +7,9 @@
 #include <vector>
 #include <cstring>
 #include <algorithm>
+#include "movies.h"
+#include "tests.h"
+#include "utility.h"
 
 using namespace std;
 

@@ -27,7 +27,7 @@ bool BST::insert(string name, double rating)
 		root = new Node(name, rating);
 		return true;
 	}
-	return insert(name, rating, root, 0);
+	return insert(name, rating, root, 1);
 }
 
 bool BST::insert(string name, double rating, Node* n, int depth)
@@ -164,7 +164,7 @@ Node* BST::searchPrefix(string prefix, Node* n) const
 
   Node* left = searchPrefix(prefix,n->left);
   Node* right = searchPrefix(prefix,n->right);
-  Node* superior;
+  Node* superior = nullptr;
 
   if(left && right){
     if(left->rating >= right->rating){
@@ -182,11 +182,17 @@ Node* BST::searchPrefix(string prefix, Node* n) const
   if(!comparePrefix(prefix,n->movie_name)){
     return superior;
   }else{
-    if(superior->rating >= n->rating){
-      return superior;
-    }else{
-      return n;
-    }
+      if (superior) {
+          if (superior->rating >= n->rating) {
+              return superior;
+          }
+          else {
+              return n;
+          }
+      }
+      else {
+          return n;
+      }
   }
 }
 

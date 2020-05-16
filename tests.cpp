@@ -54,14 +54,7 @@ void test_searchPrefix(){
 	l1.insert("ooga boogaloo", 6.9);
 	l1.insert("jumanji", 4.2);
   l1.insert("ooga hoobaloo", 3.3);
-  cout<< "gay"<<endl;
   Node* tmp = l1.searchPrefix("mon");
-  cout<<"double gay"<<endl;
-  if(tmp){
-    cout <<"does exist" << endl;
-    cout << tmp->movie_name << endl;
-  }
-  return;
   assertEquals("money men", tmp->movie_name, "test_searchPrefix name 1");
   assertEquals(6.4, tmp->rating, "test_searchPrefix rating 1");
   assertEquals(0, tmp->depth, "test_searchPrefix depth 1");

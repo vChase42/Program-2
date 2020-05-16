@@ -20,9 +20,7 @@ int main(){
 
   test_size();
   test_insert();
-  test_clear();
-  test_getNodeFor();
-  test_tolower();
+  test_searchPrefix();
 
   return 0;
 }
@@ -49,4 +47,33 @@ void test_insert(){
   l2.insert("cloudy with a chance of meatballs", 7.5);
   assertEquals(1, l2.size(), "test_insert 3");
 }
+
+void test_searchPrefix(){
+  BST l1, l2;
+  l1.insert("money men", 6.4);
+	l1.insert("ooga boogaloo", 6.9);
+	l1.insert("jumanji", 4.2);
+  l1.insert("ooga hoobaloo", 3.3);
+  cout<< "gay"<<endl;
+  Node* tmp = l1.searchPrefix("mon");
+  cout<<"double gay"<<endl;
+  if(tmp){
+    cout <<"does exist" << endl;
+    cout << tmp->movie_name << endl;
+  }
+  return;
+  assertEquals("money men", tmp->movie_name, "test_searchPrefix name 1");
+  assertEquals(6.4, tmp->rating, "test_searchPrefix rating 1");
+  assertEquals(0, tmp->depth, "test_searchPrefix depth 1");
+  
+  tmp = l1.searchPrefix("oog");
+  assertEquals("ooga boogaloo", tmp->movie_name, "test_searchPrefix name 1");
+  assertEquals(6.9, tmp->rating, "test_searchPrefix rating 1");
+  assertEquals(1, tmp->depth, "test_searchPrefix depth 1");
+
+
+}
+
+
+
 

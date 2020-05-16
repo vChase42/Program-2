@@ -10,9 +10,7 @@ using namespace std;
 
 void test_size();
 void test_insert();
-void test_clear();
-void test_getNodeFor();
-void test_tolower();
+void test_searchPrefix();
 
 //assertEquals functions for comparing different object types
 

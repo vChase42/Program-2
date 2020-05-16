@@ -30,7 +30,7 @@ bool BST::insert(string name, double rating)
 	return insert(name, rating, root, 0);
 }
 
-bool BST::insert(string name, double rating, BST::Node* n, int depth)
+bool BST::insert(string name, double rating, Node* n, int depth)
 {
 	if (name == n->movie_name) {
 		return false;
@@ -55,7 +55,7 @@ bool BST::insert(string name, double rating, BST::Node* n, int depth)
 	}
 }
 
-BST::Node* BST::getNodeFor(string name, Node* n) const
+Node* BST::getNodeFor(string name, Node* n) const
 {
 	if (!n) {
 		return nullptr;
@@ -106,7 +106,7 @@ int BST::size(Node* n) const{
 }
 
 
-BST::Node* BST::getSuccessorNode(string value) const
+Node* BST::getSuccessorNode(string value) const
 {
 	Node* tmp = getNodeFor(value, root);
     if (tmp) {
@@ -127,7 +127,7 @@ BST::Node* BST::getSuccessorNode(string value) const
     return nullptr;
 }
 
-BST::Node* BST::getPredecessorNode(string value) const
+Node* BST::getPredecessorNode(string value) const
 {
 	Node* tmp = getNodeFor(value, root);
   if (tmp) {
@@ -148,23 +148,50 @@ BST::Node* BST::getPredecessorNode(string value) const
     return nullptr;
 }
 
-BST::Node* BST::searchPrefix(string prefix) const
+Node* BST::searchPrefix(string prefix) const
 {
-	return nullptr;
+	if(root){
+    return searchPrefix(prefix,root);
+  }
+  return nullptr;
 }
 
-BST::Node* BST::searchPrefix(string prefix, Node* n) const
+Node* BST::searchPrefix(string prefix, Node* n) const
 {
-	return nullptr;
+	if(!n){
+    return nullptr;
+  }
+
+  Node* left = searchPrefix(prefix,n->left);
+  Node* right = searchPrefix(prefix,n->right);
+  Node* superior;
+
+  if(left && right){
+    if(left->rating >= right->rating){
+      superior = left;
+    }
+    else{
+      superior = right;
+    }
+  }else if(left){
+    superior = left;
+  }else if(right){
+    superior = right;
+  }
+
+  if(!comparePrefix(prefix,n->movie_name)){
+    return superior;
+  }else{
+    if(superior->rating >= n->rating){
+      return superior;
+    }else{
+      return n;
+    }
+  }
 }
 
 
-bool BST::remove(string name)
-{
-	return false;
-}
-
-bool BST::comparePrefix(string prefix, string n){
+bool BST::comparePrefix(string prefix, string n) const{
   string compare = lower(n);
   string pre = lower(prefix);
 

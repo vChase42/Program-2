@@ -16,12 +16,15 @@ using namespace std;
 bool parseLine(string &line, string &movieName, double &movieRating);
 
 int main(int argc, char** argv){
+  clock_t t1, t2;
+  t1 = clock();
   if(argc < 4){
-    cerr << "Usage: " << argv[ 0 ] << "arg1 arg2 arg3" << endl;
+    cerr << "Usage: " << argv[ 0 ] << " arg1 arg2 arg3" << endl;
     exit(1);
   }
 
-  bool flag = false;
+  bool flag;
+  flag = false;
   if(strcmp(argv[1], "true") == 0){
     flag = true;
   } else if(strcmp(argv[1], "false") == 0) {
@@ -31,6 +34,12 @@ int main(int argc, char** argv){
     exit(1);
   }
   
+  ////////////////////
+  if(flag == false){
+    cout << "big gay" << endl;
+  }
+////////////////////////////
+
   ifstream movieFile (argv[2]);
   string line, movieName;
   double movieRating;
@@ -51,6 +60,8 @@ int main(int argc, char** argv){
   }
   movieFile.close();
 
+  t2 = clock();
+  cout<<"time taken: "<< t1 - t2<< "idk what units"<<endl;
   return 0;
 }
 

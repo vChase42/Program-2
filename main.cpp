@@ -61,7 +61,7 @@ bool parseLine(string &line, string &movieName, double &movieRating) {
   bool flag = false;
   movieName = tempRating = "", movieRating = 0.0, flag = false;
 
-  for (int i = 0; i < line.length(); i++){
+  for (int i = 0; i < int(line.length()); i++){
     if(flag) tempRating += line[i];
     else if(line[i]==','&& line[0]!='"') flag = true;
     else {

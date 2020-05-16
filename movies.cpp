@@ -90,22 +90,62 @@ void BST::printInOrder(Node* n) const
 
 //all below functions are unimplemented
 
-void BST::printByDepth() const
-{
+int BST::size() const{
+  if(root){
+    return size(root);
+  }else{
+    return 0;
+  }
 }
 
-void BST::printByDeth(Node* n) const
-{
+int BST::size(Node* n) const{
+  if(!n){
+    return 0;
+  }
+  return 1 + size(n->left) + size(n->right);
 }
 
-BST::Node* BST::getSuccessorNode(string name) const
+
+BST::Node* BST::getSuccessorNode(string value) const
 {
-	return nullptr;
+	Node* tmp = getNodeFor(value, root);
+    if (tmp) {
+        if (tmp->right) {
+            tmp = tmp->right;
+            while (tmp->left) {
+                tmp = tmp->left;
+            }
+            return tmp;
+        }
+        while (tmp->parent) {
+            tmp = tmp->parent;
+            if (value < tmp->movie_name) {
+                return tmp;
+            }
+        }
+    }
+    return nullptr;
 }
 
-BST::Node* BST::getPredecessorNode(string name) const
+BST::Node* BST::getPredecessorNode(string value) const
 {
-	return nullptr;
+	Node* tmp = getNodeFor(value, root);
+  if (tmp) {
+        if (tmp->left) {
+            tmp = tmp->left;
+            while (tmp->right) {
+                tmp = tmp->right;
+            }
+            return tmp;
+        }
+        while (tmp->parent) {
+            tmp = tmp->parent;
+            if (value > tmp->movie_name) {
+                return tmp;
+            }
+        }
+    }
+    return nullptr;
 }
 
 BST::Node* BST::searchPrefix(string prefix) const
@@ -122,4 +162,25 @@ BST::Node* BST::searchPrefix(string prefix, Node* n) const
 bool BST::remove(string name)
 {
 	return false;
+}
+
+bool BST::comparePrefix(string prefix, string n){
+  string compare = lower(n);
+  string pre = lower(prefix);
+
+  if(pre.compare(0,pre.size()-1,compare,0,pre.size()-1) == 0){
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+string BST::lower(string word) const{
+    string tmp = "";
+    for (unsigned i = 0; i < word.size(); i++) {
+        tmp += tolower(word[i]);
+    }
+    return tmp;
 }

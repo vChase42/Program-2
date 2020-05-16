@@ -10,5 +10,13 @@ using namespace std;
 
 int main(){
 
-  cout<<"ur mom gay"<<endl;
+	BST list;
+
+	list.insert("ooga boogaloo", 6.9);
+	list.insert("money men", 6.9);
+	list.insert("jumanji", 4.2);
+	
+	
+
+	list.printInOrder();
 }

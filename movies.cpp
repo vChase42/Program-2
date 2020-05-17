@@ -161,7 +161,7 @@ bool BST::comparePrefix(string prefix, string n) const{
     string compare = lower(n);
     string pre = lower(prefix);
 
-    if(pre.compare(0,pre.size()-1,compare,0,pre.size()-1) == 0){
+    if(pre.compare(0,pre.size(),compare,0,pre.size()) == 0){
         return true;
     }
     else

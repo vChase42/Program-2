@@ -58,10 +58,12 @@ int main(int argc, char** argv){
 
 
   list.printPreOrder();
+  cout << endl;
 
   Node* movieNode = list.searchPrefix(argv[3]);
-  cout << endl << "Best movie is " << movieNode->movie_name << " with rating " << movieNode->rating << endl;
-
+  if (movieNode) {
+      cout << "Best movie is " << movieNode->movie_name << " with rating " << movieNode->rating << endl;
+  }
   t2 = clock();
   //cout<<"time taken: "<< t1 - t2<< "idk what units"<<endl;
   return 0;

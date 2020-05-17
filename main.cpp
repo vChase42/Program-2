@@ -34,11 +34,6 @@ int main(int argc, char** argv){
     exit(1);
   }
   
-  ////////////////////
-  if(flag == false){
-    cout << "big gay" << endl;
-  }
-////////////////////////////
 
   ifstream movieFile (argv[2]);
   string line, movieName;
@@ -51,14 +46,21 @@ int main(int argc, char** argv){
 
   // Create an objects of the BST class you defined 
   // to contain the name and rating in the input file
-
+  BST list;
   // Read each file and store the name and rating
   while (getline (movieFile, line) && parseLine(line, movieName, movieRating)){
+      list.insert(movieName, movieRating);
+
     // Use std::string movieName and double movieRating
     // to construct your Movie objects
-    cout << movieName << " has rating " << movieRating << endl;
   }
   movieFile.close();
+
+
+  list.printPreOrder();
+
+  Node* movieNode = list.searchPrefix(argv[3]);
+  cout << endl << "The best movie is " << movieNode->movie_name << " with rating " << movieNode->rating << endl;
 
   t2 = clock();
   cout<<"time taken: "<< t1 - t2<< "idk what units"<<endl;

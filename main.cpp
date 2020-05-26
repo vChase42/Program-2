@@ -29,6 +29,8 @@ int main(int argc, char** argv){
     flag = true;
   } else if(strcmp(argv[1], "false") == 0) {
     flag = false;
+    clock_t t1, t2;
+    t1 = clock();
   } else {
     cerr << "Argument 1 must be a boolean (true/false)" << endl;
     exit(1);
@@ -64,8 +66,10 @@ int main(int argc, char** argv){
   if (movieNode) {
       cout << "Best movie is " << movieNode->movie_name << " with rating " << movieNode->rating << endl;
   }
-  t2 = clock();
-  //cout<<"time taken: "<< t1 - t2<< "idk what units"<<endl;
+  if(strcmp(argv[1], "false") == 0){
+      t2 = clock();
+      cout<<"time taken: "<< t2 - t1<< " ticks"<<endl;
+  }
   return 0;
 }
 

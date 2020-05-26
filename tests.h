@@ -11,6 +11,7 @@ using namespace std;
 void test_size();
 void test_insert();
 void test_searchPrefix();
+void test_getNodeFor();
 
 //assertEquals functions for comparing different object types
 

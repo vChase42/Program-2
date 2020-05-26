@@ -17,7 +17,6 @@ bool parseLine(string &line, string &movieName, double &movieRating);
 
 int main(int argc, char** argv){
   clock_t t1, t2;
-  t1 = clock();
   if(argc < 4){
     cerr << "Usage: " << argv[ 0 ] << " arg1 arg2 arg3" << endl;
     exit(1);
@@ -29,8 +28,7 @@ int main(int argc, char** argv){
     flag = true;
   } else if(strcmp(argv[1], "false") == 0) {
     flag = false;
-    clock_t t1, t2;
-    t1 = clock();
+    
   } else {
     cerr << "Argument 1 must be a boolean (true/false)" << endl;
     exit(1);
@@ -48,6 +46,7 @@ int main(int argc, char** argv){
 
   // Create an objects of the BST class you defined 
   // to contain the name and rating in the input file
+
   BST list;
   // Read each file and store the name and rating
   while (getline (movieFile, line) && parseLine(line, movieName, movieRating)){
@@ -59,17 +58,26 @@ int main(int argc, char** argv){
   movieFile.close();
 
 
-  list.printPreOrder();
-  cout << endl;
 
-  Node* movieNode = list.searchPrefix(argv[3]);
-  if (movieNode) {
-      cout << "Best movie is " << movieNode->movie_name << " with rating " << movieNode->rating << endl;
+  if(strcmp(argv[1], "true") == 0){
+    list.printPreOrder();
+    cout << endl;
+    Node* movieNode = list.searchPrefix(argv[3]);
+    cout << "Best movie is " << movieNode->movie_name << " with rating " << movieNode->rating << endl;
+  }else if(strcmp(argv[1], "false") == 0){
+    t1 = clock();
+
+    Node* dummy;
+    clock_t totalTime;
+    for(int i = 0; i < atoi(argv[3]); i++){
+      dummy = list.searchPrefix("");
+    }
+
+    t2 = clock();
+    cout << "Total time:  "<< t2 - t1 << " ticks" << endl;
+    cout << "Average Time: " << int(t2-t1)/atoi(argv[3]) << endl;
   }
-  if(strcmp(argv[1], "false") == 0){
-      t2 = clock();
-      cout<<"time taken: "<< t2 - t1<< " ticks"<<endl;
-  }
+
   return 0;
 }
 

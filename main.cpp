@@ -5,6 +5,7 @@
 #include <string>
 #include <ctime>
 #include <vector>
+#include <array>
 #include <cstring>
 #include <algorithm>
 #include "movies.h"
@@ -14,9 +15,9 @@
 using namespace std;
 
 bool parseLine(string &line, string &movieName, double &movieRating);
+double findMedian(vector<int>);
 
 int main(int argc, char** argv){
-  clock_t t1, t2;
   if(argc < 4){
     cerr << "Usage: " << argv[ 0 ] << " arg1 arg2 arg3" << endl;
     exit(1);
@@ -49,12 +50,24 @@ int main(int argc, char** argv){
 
   BST list;
   // Read each file and store the name and rating
+  
+ // ofstream dataFile ("Data.txt");
+  //if(dataFile.fail()){
+  //  cerr << "failed to open data file";
+  //  exit(1);
+  //}
+  
   while (getline (movieFile, line) && parseLine(line, movieName, movieRating)){
       list.insert(movieName, movieRating);
+
+      //creates a file Data.txt and places 
+      //Node* P = list.getNodeFor(movieName);
+      //dataFile << list.size() << " "<< P->depth << endl;
 
     // Use std::string movieName and double movieRating
     // to construct your Movie objects
   }
+  //dataFile.close();
   movieFile.close();
 
 
@@ -65,17 +78,46 @@ int main(int argc, char** argv){
     Node* movieNode = list.searchPrefix(argv[3]);
     cout << "Best movie is " << movieNode->movie_name << " with rating " << movieNode->rating << endl;
   }else if(strcmp(argv[1], "false") == 0){
-    t1 = clock();
+    
 
     Node* dummy;
-    clock_t totalTime;
+    clock_t t1, t2;
+    clock_t difference;
+    clock_t totalTime = 0;
+    clock_t minimum=0;
+    clock_t maximum=0;
+    vector<int> timev;
+
     for(int i = 0; i < atoi(argv[3]); i++){
+      t1 = clock();
       dummy = list.searchPrefix("");
+      t2 = clock();
+      
+      difference = t2-t1;
+      totalTime+=difference;
+      timev.push_back(difference);
+
+      if(!minimum){
+        minimum = difference;
+      }
+      
+      if(minimum>difference){
+        minimum = difference;
+      }
+      if(maximum<difference){
+        maximum = difference;
+      }
+      
+
     }
 
-    t2 = clock();
-    cout << "Total time:  "<< t2 - t1 << " ticks" << endl;
-    cout << "Average Time: " << int(t2-t1)/atoi(argv[3]) << endl;
+    
+
+    cout << "Total time:  "<< totalTime/10 << " microseconds" << endl;
+    cout << "Average Time: " << 1.0*(totalTime)/atoi(argv[3])/10 << " microseconds" << endl;
+    cout << "Minimum Time: " << minimum/10 << " microseconds" << endl;
+    cout << "Maximum Time: " << maximum/10 << " microseconds" << endl;
+    cout << "Median Time: " << findMedian(timev)/10 << " microseconds" << endl;
   }
 
   return 0;
@@ -102,3 +144,18 @@ bool parseLine(string &line, string &movieName, double &movieRating) {
   return true;
 }
 
+double findMedian(vector<int> arr){
+  if(arr.size() == 0){
+    return 0;
+  }
+  if(arr.size() == 2){
+    return (arr.at(0) + arr.at(1))/2.0;
+  }
+  if(arr.size() == 1){
+    return arr.at(0);
+  }
+  arr.erase(arr.begin()+arr.size()-1);
+  arr.erase(arr.begin());
+  findMedian(arr);
+  
+}
